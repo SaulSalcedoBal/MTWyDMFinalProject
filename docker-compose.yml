@@ -1,0 +1,53 @@
+version: '3.1'
+
+services:
+
+ reverse-proxy:
+  image: jwilder/nginx-proxy:alpine
+  container_name: 'reverseproxy'
+  restart: always
+  ports:
+    - '80:80'
+  volumes:
+    - certs:/etc/nginx/certs:ro
+    - vhostd:/etc/nginx/vhost.d
+    - html:/usr/share/nginx/html
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+
+ mongo:
+  container_name: 'mongodb'
+  image: mongo
+  environment:
+   MONGO_INITDB_ROOT_USERNAME: dba-root
+   MONGO_INITDB_ROOT_PASSWORD: mongoadmin
+  ports:
+   - 27017:27017
+  volumes:
+   - ~/volumes/mongo/data/db:/data/db
+
+ angular:
+  container_name: 'angularapp'
+  build:
+   context: /usr/src/MTWyDMFinalProject/angular-socket-client
+   dockerfile: Dockerfile
+  restart: always
+  environment:
+    - VIRTUAL_HOST=slopezfu-ng.com
+
+ node:
+  container_name: 'nodejs'
+  build:
+   context: /usr/src/MTWyDMFinalProject/node-socket-server
+   dockerfile: Dockerfile
+  restart: always
+  environment:
+    - VIRTUAL_HOST=slopezfu-node.com
+
+volumes:
+ certs:
+ html:
+ vhostd:
+       
+
+      
+      
