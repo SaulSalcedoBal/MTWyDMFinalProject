@@ -1,5 +1,4 @@
 import { MongoClient, MongoClientOptions } from "mongodb";
-// import ENV from '../environments/env';
 
 export default class MongDBHelper {
     public db: any;
@@ -11,9 +10,8 @@ export default class MongDBHelper {
 
     constructor(ENV: any, isAuth: boolean = false) {
         if (isAuth) {
-            // this.dbUri = `mongodb://${ENV.USER_NAME}:${ENV.USER_PASSWORD}@${ENV.HOST}:${ENV.PORT}/${ENV.DATABASE}`;
             this.dbUri = `mongodb://${ENV.USER_NAME}:${ENV.USER_PASSWORD}@${ENV.HOST}:${ENV.PORT}`;
-        } else {
+             } else {
             this.dbUri = `mongodb://${ENV.HOST}:${ENV.PORT}/${ENV.DATABASE}`;
         }
         console.log("dbUri: ----------------------->", this.dbUri);

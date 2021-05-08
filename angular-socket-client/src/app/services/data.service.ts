@@ -28,9 +28,6 @@ export class DataService {
     this.subject$.next(criterio);
   }
 
-  /**
-   * Método para subscribiernos al observable
-   */
   onListenCriterio(): Observable<string> {
     return this.subject$.asObservable();
   }

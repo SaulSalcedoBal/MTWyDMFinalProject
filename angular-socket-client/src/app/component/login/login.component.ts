@@ -14,33 +14,11 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class LoginComponent {
 
-  // @Input() socket: any;
-
-  // title = 'APP-C2MTWYDM206';
-  // suscription$: Subscription;
-
-  // constructor(public socket: SocketioService, private authSvc: AuthService, private router: Router) {
   constructor(private authSvc: AuthService, private router: Router, private oyenteSvc: DataService) {
-    // this.suscription$ = this.socket.on('broadcast-message').subscribe((payload: any) => {
-    //   // console.log(payload);
-    //   console.log(payload);
-    // });
+ 
   }
 
-  // ngOnInit(): void {
-  // }
-
-  // public login = () => {
-  //   // console.log('intentando logearse');
-  //   this.loginSvc.login({ correo: 'sergioivan16@gmail.com', apiKey: environment.API_KEY }).subscribe(async response => {
-  //     await this.loginSvc.setlocalStorage(response);
-  //     // alert("has iniciado sesión correctamente " + (<any>response).nombreCompleto);
-  //     alert("has iniciado sesión correctamente ");
-  //     this.router.navigate(['home']);
-  //   }, err => {
-  //     alert("Inicio de sesión fallida");
-  //   });
-  // }
+  
 
   sigIn(provider: string) {
     this.authSvc.loginOAuth2(provider)
@@ -48,17 +26,13 @@ export class LoginComponent {
         console.log(`Usuario de OAuth2: ${JSON.stringify(user)}`);
         this.authSvc.login({ correo: user.email, apiKey: '6096291e29444f6cd0485c44' }).subscribe(async response => {
           await this.authSvc.setlocalStorage(response);
-          console.log("send oyente sendSignIn");
+          console.log("send data sendSignIn");
           this.oyenteSvc.sendSignIn(
             user
           );
-          alert("has iniciado sesión correctamente " + user.displayName);
           this.router.navigate(['home']);
         }, err => {
-          // alert("Inicio de sesión fallida");
           alert(err.error.response.msg);
-          // alert((<any>err).msg);
-          // alert(JSON.stringify(err));
         });
       })
       .catch((error) => {
@@ -73,8 +47,7 @@ export class LoginComponent {
     console.log("Autentificado con proveedor");
     this.authSvc.loginOAuth2(provider)
       .then((user: any) => {
-        // console.log(user);
-        console.log('Autentificado por proveedor correctamente, registrando en nuestra bd...');
+        console.log('Autentificado por proveedor correctamente');
         this.router.navigate(['home']);
         this.oyenteSvc.sendSignUp(
           user
@@ -89,9 +62,5 @@ export class LoginComponent {
         }
       });
   }
-
-  // ngOnDestroy(): void {
-  //   this.suscription$.unsubscribe();
-  // }
 
 }

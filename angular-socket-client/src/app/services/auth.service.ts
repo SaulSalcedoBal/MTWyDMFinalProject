@@ -16,7 +16,6 @@ export class AuthService {
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {
     firebase.initializeApp(environment.FIREBASE_SETTINGS);
     firebase.auth().onAuthStateChanged((user: any) => {
-      //console.log('Evento onAuthStateChanged: ', user);
     });
   }
 
