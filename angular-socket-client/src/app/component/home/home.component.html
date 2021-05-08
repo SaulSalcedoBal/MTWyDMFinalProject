@@ -1,0 +1,27 @@
+<!-- {{ listaUsuarios | json}} -->
+<h3>Usuarios Conectados</h3>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-deck">
+            <div *ngFor="let user of listaUsuarios">
+                <img [src]="user.fotoUrl">
+                <div>
+                    <h5 class="card-title">{{user.nombreCompleto}}</h5>
+                    <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> -->
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{user.email}}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="">
+    <div class="">
+        <button type="button" style="width: 15%;" class=" w3-red" (click)="logOut()">Logout</button>
+    </div>
+</div>
